@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'net.neoforged.moddev' version '2.0.107'
+}
+
+group = 'com.example'
+version = '0.4.0'
+base {
+    archivesName = 'safearmlink'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+neoForge {
+    version = '21.1.172'
+    runs {
+        client { client() }
+        server { server() }
+    }
+    mods {
+        safearmlink {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.createmod.net' } // Create, Ponder, Flywheel
+    maven { url = 'https://maven.ithundxr.dev/snapshots' } // Registrate
+}
+
+dependencies {
+    // Create 6.0.10 for Minecraft 1.21.1; needed for the planned Mechanical Arm integration.
+    implementation('com.simibubi.create:create-1.21.1:6.0.10-280:slim') { transitive = false }
+    implementation('net.createmod.ponder:ponder-neoforge:1.0.82+mc1.21.1')
+    compileOnly('dev.engine-room.flywheel:flywheel-neoforge-api-1.21.1:1.0.6')
+    runtimeOnly('dev.engine-room.flywheel:flywheel-neoforge-1.21.1:1.0.6')
+    implementation('com.tterrag.registrate:Registrate:MC1.21-1.3.0+67')
+}
+
